@@ -1,8 +1,33 @@
 \chapter{Trabajo realizado}
 
+Durante mis prácticas he pertenecido al equipo de desarrollo de un proyecto interno que tenía como objetivo la gestión de servidores en \textit{IaaS}, permitiendo establecer tareas automáticas sobre estos, apagarlos y encenderlos. Todo esto en un formato de \textit{Single Page Application (SPA)} donde existan diversos usuarios y roles que puedan realizar distintas tareas sobre estos servidores. Como \textit{stack} de desarrollo se ha usado \textit{Mongo DB, Flask y Angular JS}; repartido en contenedores \textit{Docker} y utilizando \textit{Python 3.x}.
+
 \section{Primera semana}
+
+Esta primera semana consistió en una adaptación a las prácticas, se me dio un ordenador Ubuntu recién formateado y estuve instalando las herramientas necesarias como el IDE \textit{PyCharms}, la herramienta de gestion de BD \textit{RoboMongo}, \textit{Docker}, ... 
+
+Para poder trabajar en el proyecto donde desarrollaría mis prácticas requería de acceso a varios proyectos situados en el servidor \textit{git} de la empresa, por ello según avanzaba en el despliegue del mismo iban surgiendo problemas que tras lograr solucionar documenté y actualicé las instrucciones del repositorio de la empresa.
+
+Una vez logrado esto me dispuse a realizar un tutorial de Angular JS \cite{angular_js_tutorial}, ya que la parte de \textit{front-end} en mi proyecto utilizaba dicho \textit{framework} y yo no tenía ninguna experiencia previa con este. El desarrollo de dicho tutorial se encuentra disponible en mi \textit{GitHub} en el siguiente  \href{https://github.com/AythaE/AngularJS_Tutorial}{enlace}.
+
+Para completar la primera semana me dispuse a realizar mi primera tarea del \textit{sprint} actual, esta consistía en realizar un \textit{CRUD (Create, Read, Update, Delete)} utilizando algunas librerías internas de la empresa siendo el objeto de este \textit{CRUD} servidores que correspondería a instancias de EC2 de \textit{Amazon Web Service(AWS)}. Era la primera vez que veía las librerías internas de la empresa e intenté imitar lo que se realizaba con los usuarios, pero debido a mi desconocimiento y a algunos problemas con los usuarios que me impedían comprobar algunas funcionalidades esta tarea quedo sin acabar en este \textit{sprint}.
+
 \section{Segunda semana}
+
+Continuando la tarea anterior comencé desarrollando el \textit{back-end} de mi \textit{CRUD} y testeando la \textit{API Rest} creada con la herramienta \textit{Postman}.
+
+Para aclarar algunos conceptos sobre las librerías de la empresa estuve instalando y probando otros proyectos de ejemplo que mostraban su funcionamiento de una manera más simple, con ello comprendí mejor la lógica de estas librerías y realicé algunas modificaciones en mi tarea \textit{CRUD}. 
+
+A pesar de esto no era capaz de hacer funcionar totalmente el \textit{back-end} por algunos problemas con las peticiones HTTP POST, esto se debía a que no estaba añadiendo algunos campos requeridos por las librerías de la empresa para realizar un \textit{CRUD}. Una vez hecho esto logré hacer funcionar el \textit{back-end}, tras lo que añadí código disponible en otros repositorios de la empresa para conectarse a \textit{AWS} y recuperar la lista de instancias asociada a unos credenciales haciendo que estos se guarden en la BD y se puedan refrescar al hacer otra petición a \textit{AWS}.
+
+Como es lógico ahora pasé a desarrollar el \textit{front-end} utilizando otros como ejemplos. Esta semana logré mostrar los servidores en la BD en una tabla con sus campos más destacados y un botón que lanzaba una petición a \textit{AWS} para refrescar la lista, pero me faltó implementar la búsqueda y la ordenación por columnas de la tabla.
+ 
 \section{Tercera semana}
+
+Esta semana los compañeros del proyecto me comentaron en el \textit{daily stand-up} que sería necesario añadir un botón en la tabla de servidores para parar o arrancar, dicho botón llama a un método de la \textit{API} que utiliza el paquete \textit{boto} para realizar la tarea deseada sobre la instancia seleccionada.
+
 \section{Cuarta semana}
+
 \section{Quinta semana}
+
 \section{Sexta semana}
