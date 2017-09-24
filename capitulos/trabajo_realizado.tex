@@ -2,7 +2,7 @@
 
 Durante mis prácticas he pertenecido al equipo de desarrollo de un proyecto interno que tenía como objetivo la gestión de servidores en \textit{IaaS}, permitiendo establecer tareas automáticas sobre estos, apagarlos y encenderlos. Todo esto en un formato de \textit{Single Page Application (SPA)} donde existan diversos usuarios y roles que puedan realizar distintas tareas sobre estos servidores. Como \textit{stack} de desarrollo se ha usado \textit{Mongo DB, Flask y Angular JS}; repartido en contenedores \textit{Docker} y utilizando \textit{Python 3.x}.
 
-\section{Primera semana}
+\section{Primera semana}  \label{primera}
 
 Esta primera semana consistió en una adaptación a las prácticas, se me dio un ordenador Ubuntu recién formateado y estuve instalando las herramientas necesarias como el IDE \textit{PyCharms}, la herramienta de gestion de BD \textit{RoboMongo}, \textit{Docker}, ... 
 
@@ -24,10 +24,38 @@ Como es lógico ahora pasé a desarrollar el \textit{front-end} utilizando otros
  
 \section{Tercera semana}
 
-Esta semana los compañeros del proyecto me comentaron en el \textit{daily stand-up} que sería necesario añadir un botón en la tabla de servidores para parar o arrancar, dicho botón llama a un método de la \textit{API} que utiliza el paquete \textit{boto} para realizar la tarea deseada sobre la instancia seleccionada.
+Los compañeros del proyecto me comentaron en el \textit{daily stand-up} que sería necesario añadir un botón en la tabla de servidores para parar o arrancar, dicho botón llama a un método de la \textit{API} que utiliza el paquete \textit{python boto} para realizar la tarea deseada sobre la instancia seleccionada además de notificar por \textit{Slack} la acción aplicada sobre la instancia.
+
+Adicionalmente implementé la búsqueda y la ordenación por columnas pendiente la semana previa así como diversas mejoras de usabilidad como mostrar mensajes de confirmación al realizar una acción sobre un servidor o mostrar un \textit{spinner} en caso de que se encontrará realizando una acción.
+
+Tras esto cogí una nueva tarea del \textit{sprint} que se basaba en hacer diversos cambios en el \textit{front-end}, como crear una nueva ventana de login con un logo para la aplicación, resolver algunos problemas con las pestañas o seleccionar la página por defecto al acceder a la aplicación.
+
+Para la instalación de la aplicación existía un \textit{script} para inicializar la BD con los datos por defecto necesarios para que empiece a funcionar la aplicación, pero dicho \textit{script} se encontraba en proceso de migración de \textit{Python 2} a \textit{Python 3} por lo que no funcionaba correctamente, por ello cogí esa tarea y estuve retocando cosas y entendiendo la lógica de inicialización que debería de seguir todo.
 
 \section{Cuarta semana}
 
+Como comenté en la primera semana \ref{primera} existían problemas con el \textit{CRUD} de usuarios que imposibilitaba añadirlos desde el \textit{front-end}, este \textit{bug} resultó ser más complejo de lo esperado, debido a que la clase usuario heredaba de una librería interna de la empresa donde se producía el fallo. 
+
+También estuve realizando una tarea de gestión de roles de usuario con el objetivo de que existieran dos perfiles (administrador y usuario estándar) asignables a cada usuario y que esto limitara su acceso a servidores haciendo que los usuarios estándar solo pudieran manejar servidores marcados como accesibles por parte de algún administrador.
+
 \section{Quinta semana}
 
+He comenzado esta semana realizando una tarea del sprint de gestión de credenciales de \textit{AWS} de modo que se puedan configurar desde el \textit{front-end}, para ello se ha creado un \textit{CRUD} de credenciales, teniendo la precaución de almacenar en la BD la \textit{secret access key} encriptada. Todo esto se ha acompañado de una serie de mensajes de éxito o error para guiar al usuario en la resolución de posibles problemas. Por ejemplo si se acaba de desplegar la aplicación por primera vez no habrá credenciales fijados, por lo que la recuperación de la lista de servidores fallará, esto causará un mensaje de error indicando al usuario que el error seguramente se deba a la falta de credenciales e indicándole donde puede fijarlos.
+
+Aunque en la aplicación se recogían \textit{logs}, estos no contenían el nombre del usuario, las fechas estaban en un formato muy poco legible y su visualización no era la más indicada, por ello estuve retocándolos y mejorándolos.
+
 \section{Sexta semana}
+La última semana he estado haciendo algunos retoques para dejar el sistema funcionando correctamente:
+
+\begin{itemize}
+	\item Inicialización consistente con la BD: cuando los contenedores se paran y se vuelven a arrancar los ficheros de credenciales y las tareas automáticas (utilizando \textit{crontab}) no se vuelven a crear, por ello en arranque se comprueba la BD asociada y realizan las tareas necesaria para que el estado del contenedor sea consistente con el de la BD.
+	
+	\item Configuración de token \textit{Slack} para crear un \textit{bots} que notifiquen en un grupos concretos las acciones llevadas a cabo en los servidores, esto será una fuente de información muy importante para poder conocer el estado del sistema sin tener que acceder a los \textit{logs} de la aplicación.
+	
+	\item Creación de las tareas automáticas utilizadas en la empresa como el arranque automático de los servidores de desarrollo a las 8 de la mañana (cuando empieza la jornada de trabajo) y la parada de los mismos al final de la jornada.
+	
+	\item Añadir un reporte del uso de los servicios \textit{AWS} utilizando el paquete \textit{boto} mencionado previamente, este reporte muestra datos de uso de todos los servicios utilizados por esos credenciales \textit{AWS} así como un resumen de la facturación por meses. Esto será muy útil para comprobar como el uso de este sistema puede repercutir en la reducción de la factura.
+\end{itemize}
+
+
+
